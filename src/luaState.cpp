@@ -59,6 +59,11 @@ lua_State *LuaState::getState() const {
 	return L;
 }
 
+// Kill the lua script.
+void LuaState::kill() {
+	lua_kill(this->getState());
+}
+
 // Binds lua libraries with the lua state
 Ref<LuaError> LuaState::bindLibraries(TypedArray<String> libs) {
 	for (int i = 0; i < libs.size(); i++) {

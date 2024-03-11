@@ -27,6 +27,7 @@ LuaAPI::~LuaAPI() {
 void LuaAPI::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("do_file", "FilePath", "Args"), &LuaAPI::doFile, DEFVAL(Array()));
 	ClassDB::bind_method(D_METHOD("do_string", "Code", "Args"), &LuaAPI::doString, DEFVAL(Array()));
+	ClassDB::bind_method(D_METHOD("kill"), &LuaAPI::kill);
 
 	ClassDB::bind_method(D_METHOD("bind_libraries", "Array"), &LuaAPI::bindLibraries);
 	ClassDB::bind_method(D_METHOD("set_hook", "Hook", "HookMask", "Count"), &LuaAPI::setHook);
@@ -145,6 +146,13 @@ Ref<LuaError> LuaAPI::pushGlobalVariant(String name, Variant var) {
 Ref<LuaError> LuaAPI::registerLibrary(String name, Array arr) {
 	return state.registerLibrary(name, arr);
 }
+
+// Kill the lua process.
+void LuaAPI::kill() {
+   // Kill the lua script, can be called from another thread.
+   state.kill();
+}
+
 
 // addFile() calls luaL_loadfille with the absolute file path
 Variant LuaAPI::doFile(String fileName, Array args) {

@@ -24,6 +24,8 @@ public:
 	void setState(lua_State *state, LuaAPI *lua, bool bindAPI);
 	void setHook(Callable hook, int mask, int count);
 
+	void kill();
+
 	bool luaFunctionExists(String functionName);
 
 	lua_State *getState() const;
